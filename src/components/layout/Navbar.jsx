@@ -35,6 +35,14 @@ export default function Navbar({ onOpenCommandPalette }) {
 
   return (
     <>
+      {/* Accessible Skip Link */}
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-bg font-mono font-bold text-xs rounded-xl shadow-2xl focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
           isScrolled

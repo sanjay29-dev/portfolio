@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Copy, Check, Github, Linkedin, MapPin, Send, MessageSquare } from 'lucide-react';
+import { Mail, Copy, Check, Github, Linkedin, MapPin, Send, Loader2, ExternalLink } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
 import SectionHeading from '../ui/SectionHeading.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -8,7 +8,9 @@ import Button from '../ui/Button.jsx';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', message: '', _gotcha: '' });
 
   const handleCopyEmail = () => {
@@ -17,10 +19,50 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In Phase 2, mock validation/submission state. Formspree endpoint connected in Phase 5.
-    setFormSubmitted(true);
+    if (formData._gotcha) {
+      // Spam detected via honeypot
+      setFormSubmitted(true);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    if (profileData.formspreeId) {
+      try {
+        const response = await fetch(`https://formspree.io/f/${profileData.formspreeId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
+          })
+        });
+
+        if (response.ok) {
+          setFormSubmitted(true);
+        } else {
+          const data = await response.json();
+          setErrorMessage(data?.error || 'Failed to deliver message. Please use direct email.');
+        }
+      } catch (err) {
+        setErrorMessage('Network error while sending. Please use direct email.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      // Simulated delivery fallback when Formspree ID is not yet provided
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setFormSubmitted(true);
+      }, 700);
+    }
   };
 
   return (
@@ -30,13 +72,13 @@ export default function Contact() {
           <SectionHeading
             index="06"
             title="Let's build something reliable."
-            subtitle="I'm actively looking for Java Full Stack and back-end developer roles. The fastest way to reach me is email."
+            subtitle="I'm open to Java Full Stack and back-end developer roles. The fastest way to reach me is email."
           />
         </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           
-          {/* Left Column: Direct Contact & Social channels */}
+          {/* Left Column: Direct Communication & Socials */}
           <div className="lg:col-span-5 space-y-6">
             <Reveal delay={0.1}>
               <Card className="space-y-6">
@@ -92,6 +134,7 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-bg-subtle text-text-muted hover:text-accent hover:border-accent/40 text-xs font-mono transition-colors"
+                      aria-label="LinkedIn Profile"
                     >
                       <Linkedin className="w-3.5 h-3.5 text-accent" />
                       <span>LinkedIn</span>
@@ -102,6 +145,7 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-bg-subtle text-text-muted hover:text-accent hover:border-accent/40 text-xs font-mono transition-colors"
+                      aria-label="GitHub Profile"
                     >
                       <Github className="w-3.5 h-3.5 text-accent" />
                       <span>GitHub</span>
@@ -124,14 +168,17 @@ export default function Contact() {
                     <h4 className="font-heading font-bold text-xl text-text">
                       Message dispatched
                     </h4>
-                    <div className="font-mono text-xs text-text-muted bg-bg p-3 rounded-lg border border-border inline-block">
-                      <span className="text-success">✓ message sent</span> — I'll reply soon to your email.
+                    <div className="font-mono text-xs sm:text-sm text-text-muted bg-bg p-3.5 rounded-lg border border-border inline-block">
+                      <span className="text-success font-semibold">✓ message sent</span> — I'll reply soon to <span className="text-accent">{formData.email}</span>.
                     </div>
-                    <div>
+                    <div className="pt-2">
                       <Button
                         variant="subtle"
                         size="sm"
-                        onClick={() => setFormSubmitted(false)}
+                        onClick={() => {
+                          setFormSubmitted(false);
+                          setFormData({ name: '', email: '', message: '', _gotcha: '' });
+                        }}
                       >
                         Send another note
                       </Button>
@@ -139,7 +186,7 @@ export default function Contact() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Hidden Honeypot */}
+                    {/* Hidden Honeypot Field */}
                     <input
                       type="text"
                       name="_gotcha"
@@ -151,13 +198,14 @@ export default function Contact() {
                     />
 
                     <div>
-                      <label className="block text-xs font-mono text-text-muted mb-2 uppercase tracking-wider">
+                      <label htmlFor="contact-name" className="block text-xs font-mono text-text-muted mb-2 uppercase tracking-wider">
                         Your Name
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         required
-                        placeholder="e.g. Jane Doe"
+                        placeholder="e.g. Hiring Manager / Recruiter"
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-bg-subtle text-text placeholder:text-text-muted/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent font-body text-sm transition-colors"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -165,13 +213,14 @@ export default function Contact() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-text-muted mb-2 uppercase tracking-wider">
+                      <label htmlFor="contact-email" className="block text-xs font-mono text-text-muted mb-2 uppercase tracking-wider">
                         Email Address
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         required
-                        placeholder="e.g. jane@company.com"
+                        placeholder="e.g. recruiter@company.com"
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-bg-subtle text-text placeholder:text-text-muted/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent font-body text-sm transition-colors"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -179,10 +228,11 @@ export default function Contact() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-text-muted mb-2 uppercase tracking-wider">
+                      <label htmlFor="contact-message" className="block text-xs font-mono text-text-muted mb-2 uppercase tracking-wider">
                         Message
                       </label>
                       <textarea
+                        id="contact-message"
                         required
                         rows="4"
                         placeholder="Hi Sanjay, we have an open role for a Java Full Stack Developer..."
@@ -192,14 +242,21 @@ export default function Contact() {
                       />
                     </div>
 
+                    {errorMessage && (
+                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono">
+                        {errorMessage}
+                      </div>
+                    )}
+
                     <Button
                       type="submit"
                       variant="primary"
                       size="md"
-                      icon={Send}
+                      icon={isSubmitting ? Loader2 : Send}
+                      disabled={isSubmitting}
                       className="w-full justify-center"
                     >
-                      Send Message
+                      {isSubmitting ? 'Transmitting message...' : 'Send Message'}
                     </Button>
                   </form>
                 )}

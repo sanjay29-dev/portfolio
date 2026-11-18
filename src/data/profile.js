@@ -12,6 +12,7 @@ export const profileData = {
   github: "https://github.com/sanjay-2004-dev",
   githubUsername: "sanjay-2004-dev",
   linkedin: "https://linkedin.com/in/sanjay-v-a47452374",
+  formspreeId: null, // Sanjay can insert his Formspree form ID here
   photo: "/media/profile/photo.png",
   resumePath: null, // Phone number detected in PDF - kept private until clean version is provided
   resumeAvailable: false,
