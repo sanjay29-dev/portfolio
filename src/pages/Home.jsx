@@ -5,6 +5,7 @@ import PageTransition from '../components/layout/PageTransition.jsx';
 import Hero from '../components/sections/Hero.jsx';
 import Snapshot from '../components/sections/Snapshot.jsx';
 import About from '../components/sections/About.jsx';
+import FeaturedProjects from '../components/sections/FeaturedProjects.jsx';
 import Timeline from '../components/sections/Timeline.jsx';
 import Certifications from '../components/sections/Certifications.jsx';
 import Contact from '../components/sections/Contact.jsx';
@@ -32,6 +33,9 @@ export default function Home() {
 
           {/* About Section */}
           <About />
+
+          {/* Featured Projects (PharmaCare) */}
+          <FeaturedProjects />
 
           {/* Experience & Education Timeline */}
           <Timeline />
