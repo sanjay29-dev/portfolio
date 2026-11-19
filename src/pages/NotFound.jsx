@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Home as HomeIcon, Terminal, AlertOctagon } from 'lucide-react';
+import { ArrowLeft, Home as HomeIcon, AlertOctagon } from 'lucide-react';
 import Navbar from '../components/layout/Navbar.jsx';
 import Footer from '../components/layout/Footer.jsx';
 import PageTransition from '../components/layout/PageTransition.jsx';
@@ -32,7 +32,7 @@ export default function NotFound() {
                 </p>
               </div>
 
-              {/* Terminal Snippet */}
+              {/* Diagnostic Snippet */}
               <div className="p-3.5 rounded-xl bg-bg-subtle border border-border font-mono text-xs text-left text-text-muted space-y-1">
                 <div className="text-accent">$ curl -I {window.location.pathname}</div>
                 <div className="text-red-400">HTTP/1.1 404 Not Found</div>

@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
   ArrowRight, 
-  Terminal, 
   FileText, 
   Github, 
   Linkedin, 
@@ -19,7 +18,7 @@ import {
 import { profileData } from '../../data/profile.js';
 import { projectsData } from '../../data/projects.js';
 
-export default function CommandPalette({ isOpen, onClose, onOpenTerminal }) {
+export default function CommandPalette({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef(null);
@@ -44,7 +43,6 @@ export default function CommandPalette({ isOpen, onClose, onOpenTerminal }) {
     })),
 
     // Actions
-    { id: 'act-terminal', label: 'Open Developer Terminal', category: 'Actions', icon: Terminal, action: () => { onClose(); onOpenTerminal(); } },
     { id: 'act-email', label: 'Copy Email Address', category: 'Actions', icon: Mail, action: () => { navigator.clipboard.writeText(profileData.email); alert('Email copied: ' + profileData.email); onClose(); } },
     { id: 'act-github', label: 'Open GitHub Profile', category: 'Actions', icon: Github, action: () => { window.open(profileData.github, '_blank'); onClose(); } },
     { id: 'act-linkedin', label: 'Open LinkedIn Profile', category: 'Actions', icon: Linkedin, action: () => { window.open(profileData.linkedin, '_blank'); onClose(); } },

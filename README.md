@@ -66,13 +66,12 @@ portfolio/
 │  │  ├─ skills.js                # Tech skills & SVG ecosystem nodes
 │  │  ├─ projects.js              # Projects & case study details
 │  │  ├─ experience.js            # Training & education timeline
-│  │  ├─ certifications.js        # Verified certifications
-│  │  └─ terminalCommands.js      # Terminal commands
+│  │  └─ certifications.js        # Verified certifications
 │  ├─ components/
 │  │  ├─ layout/                  # Navbar, Footer, MobileMenu, PageTransition
 │  │  ├─ ui/                      # Button, Card, Tag, SectionHeading, Reveal, Tooltip
 │  │  ├─ sections/                # Hero, Snapshot, About, Skills, FeaturedProjects, Timeline, Certifications, Contact
-│  │  ├─ features/                # Terminal (>_), CommandPalette (Ctrl+K), SkillsGraph, CursorGlow, GithubStats
+│  │  ├─ features/                # CommandPalette (Ctrl+K), SkillsGraph, CursorGlow, GithubStats
 │  │  └─ project/                 # ArchitectureExplorer, Gallery, Lightbox, FeatureGrid, ApiTable, DatabaseDesign
 │  ├─ pages/                      # Home.jsx, ProjectDetail.jsx, NotFound.jsx
 │  ├─ hooks/                      # useScrollSpy, useHotkey
