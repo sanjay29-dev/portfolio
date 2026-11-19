@@ -9,8 +9,8 @@ export const profileData = {
   location: "Chennai, Tamil Nadu, India",
   email: "wilsonsanjay29@gmail.com",
   status: "Open to Java Full Stack roles",
-  github: "https://github.com/sanjay-2004-dev",
-  githubUsername: "sanjay-2004-dev",
+  github: "https://github.com/sanjay29-dev",
+  githubUsername: "sanjay29-dev",
   linkedin: "https://linkedin.com/in/sanjay-v-a47452374",
   formspreeId: null, // Sanjay can insert his Formspree form ID here
   photo: "/media/profile/photo.png",
