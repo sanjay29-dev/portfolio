@@ -71,7 +71,7 @@ portfolio/
 │  │  ├─ layout/                  # Navbar, Footer, MobileMenu, PageTransition
 │  │  ├─ ui/                      # Button, Card, Tag, SectionHeading, Reveal, Tooltip
 │  │  ├─ sections/                # Hero, Snapshot, About, Skills, FeaturedProjects, Timeline, Certifications, Contact
-│  │  ├─ features/                # CommandPalette (Ctrl+K), SkillsGraph, CursorGlow, GithubStats
+│  │  ├─ features/                # SkillsGraph, CursorGlow, GithubStats
 │  │  └─ project/                 # ArchitectureExplorer, Gallery, Lightbox, FeatureGrid, ApiTable, DatabaseDesign
 │  ├─ pages/                      # Home.jsx, ProjectDetail.jsx, NotFound.jsx
 │  ├─ hooks/                      # useScrollSpy, useHotkey

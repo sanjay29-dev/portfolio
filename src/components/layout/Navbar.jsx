@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, FileText, Search } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, FileText } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
 import { useScrollSpy } from '../../hooks/useScrollSpy.js';
 import Button from '../ui/Button.jsx';
@@ -14,17 +15,16 @@ const navLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar({ onOpenCommandPalette }) {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMac, setIsMac] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   const sectionIds = ['about', 'skills', 'projects', 'experience', 'certifications', 'contact'];
   const activeSection = useScrollSpy(sectionIds);
 
   useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -52,8 +52,8 @@ export default function Navbar({ onOpenCommandPalette }) {
       >
         <div className="max-w-content mx-auto px-5 sm:px-8 md:px-12 flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
+          <Link
+            to="/"
             className="group flex items-center gap-2.5 focus:outline-none"
             aria-label="Sanjay V - Home"
           >
@@ -63,17 +63,19 @@ export default function Navbar({ onOpenCommandPalette }) {
             <span className="font-heading font-semibold text-text hidden sm:inline-block tracking-tight text-sm">
               Sanjay V
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-bg-elevated/70 border border-border rounded-full px-4 py-1.5 backdrop-blur-sm">
             {navLinks.map((link) => {
               const id = link.href.replace('#', '');
-              const isActive = activeSection === id;
+              const isActive = isHome && activeSection === id;
+              const targetHref = isHome ? link.href : `/${link.href}`;
+
               return (
                 <a
                   key={link.name}
-                  href={link.href}
+                  href={targetHref}
                   className={`px-3 py-1 rounded-full text-xs font-mono transition-all duration-150 ${
                     isActive
                       ? 'bg-accent/15 text-accent font-semibold'
@@ -88,20 +90,6 @@ export default function Navbar({ onOpenCommandPalette }) {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Command Palette Trigger */}
-            <button
-              onClick={onOpenCommandPalette}
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-border bg-bg-elevated hover:bg-bg-subtle text-text-muted hover:text-text text-xs font-mono transition-colors focus:outline-none focus:ring-1 focus:ring-accent"
-              aria-label="Open command palette"
-              title="Command Palette"
-            >
-              <Search className="w-3.5 h-3.5 text-accent" />
-              <span className="hidden sm:inline">Search</span>
-              <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-bg text-[10px] text-text-muted border border-border">
-                {isMac ? '⌘K' : 'Ctrl+K'}
-              </kbd>
-            </button>
-
             {/* Resume Button */}
             <Button
               variant="outline"
@@ -132,7 +120,7 @@ export default function Navbar({ onOpenCommandPalette }) {
         onClose={() => setMobileMenuOpen(false)}
         navLinks={navLinks}
         activeSection={activeSection}
-        onCommandPalette={onOpenCommandPalette}
+        isHome={isHome}
       />
     </>
   );

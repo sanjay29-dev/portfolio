@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, FileText, Github, Linkedin, Mail } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
 import Button from '../ui/Button.jsx';
 
-export default function MobileMenu({ isOpen, onClose, navLinks, activeSection, onCommandPalette }) {
+export default function MobileMenu({ isOpen, onClose, navLinks, activeSection, isHome = true }) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -17,10 +18,10 @@ export default function MobileMenu({ isOpen, onClose, navLinks, activeSection, o
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-6 border-b border-border">
-            <div className="flex items-center gap-2">
+            <Link to="/" onClick={onClose} className="flex items-center gap-2">
               <span className="font-mono text-accent font-bold text-lg">SV</span>
               <span className="text-xs text-text-muted font-mono">// navigation</span>
-            </div>
+            </Link>
             <button
               onClick={onClose}
               className="p-2 rounded-lg text-text-muted hover:text-text hover:bg-bg-subtle transition-colors"
@@ -33,11 +34,13 @@ export default function MobileMenu({ isOpen, onClose, navLinks, activeSection, o
           {/* Nav links */}
           <nav className="flex-1 flex flex-col justify-center space-y-6">
             {navLinks.map((link, idx) => {
-              const isActive = activeSection === link.href.replace('#', '');
+              const isActive = isHome && activeSection === link.href.replace('#', '');
+              const targetHref = isHome ? link.href : `/${link.href}`;
+
               return (
                 <a
                   key={link.name}
-                  href={link.href}
+                  href={targetHref}
                   onClick={onClose}
                   className={`text-2xl font-heading font-semibold transition-colors flex items-center justify-between ${
                     isActive ? 'text-accent' : 'text-text-muted hover:text-text'

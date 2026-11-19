@@ -39,7 +39,7 @@ export default function ProjectDetail() {
     <PageTransition>
       <div className="min-h-screen bg-bg text-text bg-grid-pattern selection:bg-accent/20 selection:text-accent flex flex-col">
         {/* Navigation */}
-        <Navbar onOpenCommandPalette={() => alert('Command Palette trigger (Phase 4 integration)')} />
+        <Navbar />
 
         <main className="flex-1">
           {/* 1. Header & At a glance */}

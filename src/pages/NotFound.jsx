@@ -11,7 +11,7 @@ export default function NotFound() {
   return (
     <PageTransition>
       <div className="min-h-screen bg-bg text-text bg-grid-pattern selection:bg-accent/20 selection:text-accent flex flex-col justify-between">
-        <Navbar onOpenCommandPalette={() => window.dispatchEvent(new CustomEvent('open-command-palette'))} />
+        <Navbar />
 
         <main className="flex-1 flex items-center justify-center p-6 pt-32 pb-20">
           <div className="max-w-md w-full">

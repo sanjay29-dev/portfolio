@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar.jsx';
 import Footer from '../components/layout/Footer.jsx';
 import PageTransition from '../components/layout/PageTransition.jsx';
@@ -12,20 +13,31 @@ import Certifications from '../components/sections/Certifications.jsx';
 import Contact from '../components/sections/Contact.jsx';
 
 export default function Home() {
-  const handleOpenCommandPalette = () => {
-    window.dispatchEvent(new CustomEvent('open-command-palette'));
-  };
+  const location = useLocation();
+
+  // Smoothly scroll to section when navigating with hash (e.g., from case study page)
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      }
+    }
+  }, [location]);
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-bg text-text bg-grid-pattern selection:bg-accent/20 selection:text-accent flex flex-col">
         {/* Navigation Bar */}
-        <Navbar onOpenCommandPalette={handleOpenCommandPalette} />
+        <Navbar />
 
         {/* Main Content Sections */}
         <main className="flex-1">
           {/* Hero Section */}
-          <Hero onOpenCommandPalette={handleOpenCommandPalette} />
+          <Hero />
 
           {/* Recruiter Snapshot Strip */}
           <Snapshot />

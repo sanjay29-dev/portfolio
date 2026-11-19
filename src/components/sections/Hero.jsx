@@ -5,16 +5,11 @@ import { profileData } from '../../data/profile.js';
 import Button from '../ui/Button.jsx';
 import Tooltip from '../ui/Tooltip.jsx';
 
-export default function Hero({ onOpenCommandPalette }) {
+export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-  }, []);
 
   // Typing effect loop
   useEffect(() => {
@@ -164,18 +159,6 @@ export default function Hero({ onOpenCommandPalette }) {
                   </a>
                 </Tooltip>
               </div>
-
-              {/* Command Palette Keyboard Hint */}
-              <button
-                onClick={onOpenCommandPalette}
-                className="hidden sm:inline-flex items-center gap-2 text-xs font-mono text-text-muted hover:text-text cursor-pointer transition-colors"
-              >
-                <span>Press</span>
-                <kbd className="px-2 py-0.5 rounded bg-bg-elevated border border-border text-accent text-[11px]">
-                  {isMac ? '⌘K' : 'Ctrl + K'}
-                </kbd>
-                <span>to explore</span>
-              </button>
             </div>
           </div>
 
