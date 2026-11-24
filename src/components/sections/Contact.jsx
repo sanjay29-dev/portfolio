@@ -70,7 +70,7 @@ export default function Contact() {
       <div className="max-w-content mx-auto px-5 sm:px-8 md:px-12">
         <Reveal>
           <SectionHeading
-            index="06"
+            index="07"
             title="Let's build something reliable."
             subtitle="I'm open to Java Full Stack and back-end developer roles. The fastest way to reach me is email."
           />

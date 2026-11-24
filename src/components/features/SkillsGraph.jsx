@@ -31,11 +31,13 @@ export default function SkillsGraph() {
       name: nodeName,
       level: 'Core Skill',
       note: 'Key technology utilized in development workflows',
-      inProject: false
+      inProject: false,
+      projects: []
     };
   };
 
   const skillInfo = getSkillDetail(selectedNode.label);
+  const nodeProjects = selectedNode.projects || skillInfo.projects || (selectedNode.inProject ? ['PharmaCare'] : []);
 
   return (
     <div className="space-y-6">
@@ -134,32 +136,49 @@ export default function SkillsGraph() {
         {/* Selected Node Telemetry Banner */}
         <div className="mt-4 p-4 rounded-xl border border-border bg-bg-subtle flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
               <span className="font-heading font-bold text-text text-base">
                 {selectedNode.label}
               </span>
               <Tag variant="default" size="xs">
                 {selectedNode.category.toUpperCase()}
               </Tag>
-              {selectedNode.inProject && (
-                <Tag variant="accent" size="xs">
-                  USED IN PHARMACARE
+              {nodeProjects.map((proj) => (
+                <Tag
+                  key={proj}
+                  variant={proj === 'Hireloop' ? 'accent' : 'success'}
+                  size="xs"
+                >
+                  USED IN {proj.toUpperCase()}
                 </Tag>
-              )}
+              ))}
             </div>
             <p className="text-xs text-text-muted">
               {skillInfo.note}
             </p>
           </div>
 
-          {selectedNode.inProject ? (
-            <Link
-              to="/projects/pharmacare"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent text-bg text-xs font-mono font-bold hover:bg-cyan-300 transition-colors shrink-0"
-            >
-              <span>Used in PharmaCare</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+          {nodeProjects.length > 0 ? (
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              {nodeProjects.includes('Hireloop') && (
+                <Link
+                  to="/projects/hireloop"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent text-bg text-xs font-mono font-bold hover:bg-cyan-300 transition-colors shadow-sm"
+                >
+                  <span>Hireloop</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              )}
+              {nodeProjects.includes('PharmaCare') && (
+                <Link
+                  to="/projects/pharmacare"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-bg-elevated border border-accent/40 text-accent text-xs font-mono font-bold hover:bg-accent/10 transition-colors shadow-sm"
+                >
+                  <span>PharmaCare</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              )}
+            </div>
           ) : (
             <span className="text-xs font-mono text-text-muted shrink-0">
               Training & Hands-on Lab
@@ -190,19 +209,13 @@ export default function SkillsGraph() {
                       key={s.name}
                       className="p-2.5 rounded-lg bg-bg-subtle border border-border/80 flex flex-col gap-1 hover:border-accent/40 transition-colors"
                     >
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <span className="font-mono text-xs font-bold text-text">
                           {s.name}
                         </span>
-                        {s.inProject ? (
-                          <Tag variant="accent" size="xs">
-                            PharmaCare
-                          </Tag>
-                        ) : (
-                          <Tag variant="default" size="xs">
-                            {s.level}
-                          </Tag>
-                        )}
+                        <Tag variant="default" size="xs">
+                          {s.level}
+                        </Tag>
                       </div>
                       <p className="text-[11px] text-text-muted leading-relaxed">
                         {s.note}

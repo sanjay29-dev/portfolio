@@ -1,5 +1,195 @@
 export const projectsData = [
   {
+    slug: "hireloop",
+    title: "Hireloop",
+    subtitle: "Job Discovery & Recruitment Lifecycle Platform",
+    tagline: "Unifies job seekers, recruiters, and administrators through role-based access control, safe cascade deletions, multi-currency compensation, and real-time applicant tracking.",
+    pitch: "A full-stack recruitment platform built with Spring Boot 3, React 18, and MySQL. Features strict 3-tier Role-Based Access Control (CANDIDATE, EMPLOYER, ADMIN), localized dual-currency salary logic (₹ LPA / $k USD), safe foreign-key cascade deletions, authenticated PDF resume management, and dynamic category tracking.",
+    problem: "Recruitment portals often suffer from rigid permission models, foreign-key deletion lockups from orphaned applicant records, and unoptimized candidate evaluation loops that leave applicants disconnected.",
+    solution: "A complete multi-role platform that cleanly isolates permissions with Spring Security & JWT, enforces transactional cascade cleanup routines during job deletion, provides interactive recruitment pipeline stages with PDF resume downloads, and empowers candidates with 1-click applications.",
+    role: "Sole Developer — Designed the 6-table relational MySQL schema, built the Spring Boot 3 REST API backend with Spring Security 6 & JWT, implemented the custom cascade deletion and currency formatting utilities, and developed the glassmorphic dark-themed React 18 frontend.",
+    duration: "Full-Stack Project (Nov 2026 – Present)",
+    tags: ["Java 17", "Spring Boot 3", "Spring Security", "Spring Data JPA", "Hibernate", "React 18", "Tailwind CSS", "MySQL", "JWT", "Axios"],
+    github: "https://github.com/sanjay29-dev/hireloop",
+    liveDemo: null,
+    video: {
+      type: "youtube",
+      src: "",
+      poster: "/media/projects/hireloop/01-landing-page.png"
+    },
+    screenshots: [
+      {
+        src: "/media/projects/hireloop/01-landing-page.png",
+        caption: "Landing Page & Discovery — Dark glassmorphic interface with dynamic category opening counts and quick keyword search."
+      },
+      {
+        src: "/media/projects/hireloop/02-find-jobs.png",
+        caption: "Job Discovery Engine — Multi-parameter filtering by domain, job type, and Indian tech hub location chips (Bangalore, Hyderabad, Pune, Remote)."
+      },
+      {
+        src: "/media/projects/hireloop/03-job-details.png",
+        caption: "Job Details & 1-Click Apply — Detailed technical requirements, localized salary ranges (₹ LPA / $k), skills tags, and instant application flow."
+      },
+      {
+        src: "/media/projects/hireloop/04-candidate-profile.png",
+        caption: "Candidate Profile & Resume Hub — Centralized management for headline, technical skills, education, career experience, and default PDF resume."
+      },
+      {
+        src: "/media/projects/hireloop/05-my-applications.png",
+        caption: "Candidate Application Tracker — Real-time status badges tracking submissions from Applied to Shortlisted, Interview, and Selected."
+      },
+      {
+        src: "/media/projects/hireloop/06-employer-dashboard.png",
+        caption: "Employer Command Center — Operational metrics tracking total listings, active jobs, and 5-stage applicant pipeline conversion."
+      },
+      {
+        src: "/media/projects/hireloop/07-manage-jobs.png",
+        caption: "Job Postings Management — Live applicant counters, editing tools, status toggling (Active/Closed), and safe cascade deletion."
+      },
+      {
+        src: "/media/projects/hireloop/08-applicant-pipeline.png",
+        caption: "Interactive Applicant Pipeline — Recruiter candidate evaluation with PDF resume downloads, full profile preview modal, and status dropdowns."
+      },
+      {
+        src: "/media/projects/hireloop/09-post-job.png",
+        caption: "Job Creation Form — Flexible compensation configuration, skills tag chip generation, and application deadline scheduling."
+      },
+      {
+        src: "/media/projects/hireloop/10-admin-dashboard.png",
+        caption: "Administrator Control Center — Platform-wide analytics, employer company verification queue, job listing moderation, and user account controls."
+      }
+    ],
+    features: [
+      {
+        title: "3-Tier Role-Based Access Control (RBAC)",
+        description: "Stateless JWT authentication enforcing strict security filters and method-level @PreAuthorize permissions across CANDIDATE, EMPLOYER, and ADMIN roles.",
+        icon: "ShieldCheck"
+      },
+      {
+        title: "Safe Cascade Deletion Engine",
+        description: "Transactional cleanup routines in ApplicationRepository and SavedJobRepository ensuring job removals safely cascade to child applications and bookmarks without foreign key conflicts.",
+        icon: "Trash2"
+      },
+      {
+        title: "Interactive Applicant Pipeline",
+        description: "5-stage recruitment lifecycle (APPLIED ➔ SHORTLISTED ➔ INTERVIEW ➔ SELECTED / REJECTED) with instant status synchronization between recruiters and candidates.",
+        icon: "Users"
+      },
+      {
+        title: "Localized Dual-Currency Formatting",
+        description: "Intelligent formatSalary utility dynamically formatting compensation in Indian Lakhs (₹ LPA) for domestic openings and thousands ($k/yr) for international positions.",
+        icon: "Coins"
+      },
+      {
+        title: "Secure PDF Resume Management",
+        description: "Authenticated file upload and streaming endpoints allowing candidates to attach tailored resumes and recruiters to download submissions securely.",
+        icon: "FileText"
+      },
+      {
+        title: "Admin Moderation & Company Verification",
+        description: "Governance workflow with pending company review queues, non-destructive employer suspension, and self-suspension safeguards.",
+        icon: "Lock"
+      }
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "ui",
+          label: "React 18 Client",
+          role: "Glassmorphic Frontend & Routing",
+          tech: "React 18, React Router v6, Tailwind CSS, Framer Motion, Axios",
+          files: ["LandingPage.jsx", "EmployerDashboard.jsx", "JobsPage.jsx", "api.js"],
+          example: "Manages role-specific views, client-side JWT token storage, and dynamic API requests with Axios interceptors"
+        },
+        {
+          id: "controller",
+          label: "REST Controllers",
+          role: "API Gateway & RBAC Guards",
+          tech: "Spring Boot 3.3.5, Spring Security 6",
+          files: ["AuthController.java", "JobController.java", "EmployerController.java", "AdminController.java"],
+          example: "Validates incoming DTOs, extracts authenticated user context from SecurityContextHolder, and routes requests"
+        },
+        {
+          id: "service",
+          label: "Business Service Layer",
+          role: "Domain Logic & Orchestration",
+          tech: "Spring @Service, @Transactional",
+          files: ["JobService.java", "ApplicationService.java", "EmployerService.java", "AdminService.java"],
+          example: "Enforces employer ownership checks, updates applicant pipeline stages, and triggers cascade deletions"
+        },
+        {
+          id: "repo",
+          label: "Data Access Layer",
+          role: "JPA & Derived Queries",
+          tech: "Spring Data JPA, Hibernate ORM",
+          files: ["JobRepository.java", "ApplicationRepository.java", "CompanyRepository.java", "UserRepository.java"],
+          example: "Performs query derivations, pagination/sorting specifications, and custom @Modifying JPQL deletions"
+        },
+        {
+          id: "db",
+          label: "MySQL Relational DB",
+          role: "Persistent Storage & Integrity",
+          tech: "MySQL 8.0, InnoDB",
+          files: ["schema.sql", "application.properties"],
+          example: "Maintains relational referential integrity across 6 entity tables with unique candidate-job constraints"
+        }
+      ],
+      edges: [
+        ["ui", "controller"],
+        ["controller", "service"],
+        ["service", "repo"],
+        ["repo", "db"]
+      ]
+    },
+    database: [
+      {
+        table: "users",
+        description: "Core authentication entity storing credentials, BCrypt hashes, roles (ADMIN, EMPLOYER, CANDIDATE), and active status."
+      },
+      {
+        table: "candidate_profiles",
+        description: "1-to-1 extension of candidate users storing headline, location, phone, skills, education, experience, and default resume path."
+      },
+      {
+        table: "companies",
+        description: "1-to-1 extension of employer users storing company name, website, headquarters, about description, and admin approval status."
+      },
+      {
+        table: "jobs",
+        description: "Postings linked to companies with titles, descriptions, skills, job types, salary bounds, currency (INR/USD), and active/closed status."
+      },
+      {
+        table: "applications",
+        description: "Candidate job submissions with unique (job_id, candidate_id) constraint, resume PDF path, applied timestamp, and 5-stage status."
+      },
+      {
+        table: "saved_jobs",
+        description: "Candidate job bookmarks linking user_id and job_id for quick future reference."
+      }
+    ],
+    api: [
+      { method: "POST", path: "/api/auth/login", purpose: "Authenticate user credentials, verify active status, and return JWT token with role claims" },
+      { method: "POST", path: "/api/auth/register/candidate", purpose: "Register a candidate user account and initialize profile tracking" },
+      { method: "POST", path: "/api/auth/register/employer", purpose: "Register an employer account and queue company for administrative verification" },
+      { method: "GET", path: "/api/jobs", purpose: "Search, filter, paginate, and sort active job postings by keyword, location, and job type" },
+      { method: "POST", path: "/api/candidate/applications", purpose: "Submit job application with default profile resume or custom uploaded PDF resume" },
+      { method: "GET", path: "/api/candidate/applications", purpose: "Track all applications submitted by candidate with real-time status progression badges" },
+      { method: "POST", path: "/api/employer/jobs", purpose: "Create a new job posting with compensation ranges, required skills tags, and deadlines" },
+      { method: "DELETE", path: "/api/employer/jobs/{id}", purpose: "Safely delete a job posting with automated cascade removal of applications and bookmarks" },
+      { method: "GET", path: "/api/employer/jobs/{id}/applicants", purpose: "Retrieve candidate applicants for a specific job with resume links and profile data" },
+      { method: "PATCH", path: "/api/employer/applications/{id}/status", purpose: "Progress candidate applicant through recruitment pipeline stages (Shortlisted, Interview, Selected, Rejected)" },
+      { method: "GET", path: "/api/employer/dashboard/stats", purpose: "Compute recruiter metrics: total jobs, active jobs, total applicants, and pipeline stage counts" },
+      { method: "PATCH", path: "/api/admin/companies/{id}/approve", purpose: "Approve pending employer company registration to unlock job posting privileges" },
+      { method: "PATCH", path: "/api/admin/users/{id}/suspend", purpose: "Suspend platform user account with built-in safeguard preventing admin self-suspension" }
+    ],
+    challenges: [
+      "Overcoming foreign key constraint conflicts during job deletion by designing a transactional cascade cleanup pattern in ApplicationRepository and SavedJobRepository.",
+      "Implementing strict 3-tier Role-Based Access Control (RBAC) with Spring Security 6 filter chains and stateless JWT authentication.",
+      "Building a synchronized applicant tracking lifecycle that updates recruiter KPI metrics and candidate application statuses in real time.",
+      "Architecting a dual-currency compensation system supporting Indian Lakhs (₹ LPA) and international USD ($k) across search filters, job cards, and salary inputs."
+    ]
+  },
+  {
     slug: "pharmacare",
     title: "PharmaCare",
     subtitle: "Pharmacy Stock, Expiry & Demand Management System",

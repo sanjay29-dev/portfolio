@@ -6,6 +6,12 @@ import {
   TrendingUp, 
   Receipt, 
   Truck,
+  ShieldCheck,
+  Trash2,
+  Users,
+  Coins,
+  FileText,
+  Lock,
   CheckCircle 
 } from 'lucide-react';
 import SectionHeading from '../ui/SectionHeading.jsx';
@@ -19,7 +25,13 @@ export default function FeatureGrid({ features }) {
     BellRing,
     TrendingUp,
     Receipt,
-    Truck
+    Truck,
+    ShieldCheck,
+    Trash2,
+    Users,
+    Coins,
+    FileText,
+    Lock
   };
 
   return (

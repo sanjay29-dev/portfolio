@@ -9,6 +9,7 @@ import About from '../components/sections/About.jsx';
 import Skills from '../components/sections/Skills.jsx';
 import FeaturedProjects from '../components/sections/FeaturedProjects.jsx';
 import Timeline from '../components/sections/Timeline.jsx';
+import Education from '../components/sections/Education.jsx';
 import Certifications from '../components/sections/Certifications.jsx';
 import Contact from '../components/sections/Contact.jsx';
 
@@ -48,16 +49,19 @@ export default function Home() {
           {/* 02 — Technical Skills & Interactive Ecosystem */}
           <Skills />
 
-          {/* 03 — Featured Projects (PharmaCare) */}
+          {/* 03 — Featured Projects (Hireloop & PharmaCare) */}
           <FeaturedProjects />
 
-          {/* 04 — Experience & Education Timeline */}
+          {/* 04 — Experience & Training */}
           <Timeline />
 
-          {/* 05 — Certifications Section */}
+          {/* 05 — Education */}
+          <Education />
+
+          {/* 06 — Certifications Section */}
           <Certifications />
 
-          {/* 06 — Contact Section */}
+          {/* 07 — Contact Section */}
           <Contact />
         </main>
 

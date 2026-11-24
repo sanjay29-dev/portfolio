@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, MapPin, GraduationCap, Briefcase, Award, CheckCircle2 } from 'lucide-react';
+import { Calendar, MapPin, Briefcase, Award } from 'lucide-react';
 import { experienceData } from '../../data/experience.js';
 import SectionHeading from '../ui/SectionHeading.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -9,8 +9,6 @@ import Tag from '../ui/Tag.jsx';
 export default function Timeline() {
   const getIcon = (type) => {
     switch (type) {
-      case 'education':
-        return GraduationCap;
       case 'internship':
         return Briefcase;
       default:
@@ -24,15 +22,14 @@ export default function Timeline() {
         <Reveal>
           <SectionHeading
             index="04"
-            title="Experience & Education"
-            subtitle="My journey across academic foundations, rigorous full stack training, and practical internships."
+            title="Experience & Training"
+            subtitle="Professional training and practical industry internships across Java back-end architecture and cloud services."
           />
         </Reveal>
 
         <div className="relative border-l border-border/80 ml-4 sm:ml-8 md:ml-12 pl-6 sm:pl-10 space-y-12">
           {experienceData.map((item, idx) => {
             const Icon = getIcon(item.type);
-            const isEducation = item.type === 'education';
 
             return (
               <Reveal key={item.title + item.period} delay={idx * 0.1}>
@@ -47,7 +44,7 @@ export default function Timeline() {
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2 mb-1.5">
-                          <Tag variant={isEducation ? 'default' : 'accent'} size="xs">
+                          <Tag variant="accent" size="xs">
                             {item.type.toUpperCase()}
                           </Tag>
                           <span className="text-xs font-mono text-warm font-semibold">

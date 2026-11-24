@@ -11,6 +11,7 @@ const navLinks = [
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Education', href: '#education' },
   { name: 'Certifications', href: '#certifications' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -21,7 +22,7 @@ export default function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  const sectionIds = ['about', 'skills', 'projects', 'experience', 'certifications', 'contact'];
+  const sectionIds = ['about', 'skills', 'projects', 'experience', 'education', 'certifications', 'contact'];
   const activeSection = useScrollSpy(sectionIds);
 
   useEffect(() => {

@@ -39,18 +39,31 @@ export const experienceData = [
       "Provisioned and managed Amazon EC2 Linux/Windows virtual instances.",
       "Configured S3 storage buckets, object lifecycle rules, and IAM security policies/roles."
     ]
-  },
+  }
+];
+
+export const educationData = [
   {
     type: "education",
-    title: "B.Tech in Information Technology",
-    organization: "Adhiparasakthi College of Engineering (APCE)",
+    degree: "B.Tech in Information Technology",
+    institution: "Adhiparasakthi College of Engineering (APCE)",
     period: "2022 – 2026",
     duration: "4 years",
-    location: "Kalavai, Tamil Nadu",
-    description: "Graduated with strong foundations in computing principles, database management, and software engineering.",
+    location: "Kalavai, Tamil Nadu, India",
+    grade: "CGPA 8.12 / 10",
+    description: "Graduated with strong foundations in computer science principles, data structures, relational database management, and software engineering methodologies.",
+    coursework: [
+      "Data Structures & Algorithms",
+      "Database Management Systems (DBMS)",
+      "Object-Oriented Programming (Java/C++)",
+      "Operating Systems",
+      "Computer Networks",
+      "Software Engineering & Web Technology"
+    ],
     highlights: [
-      "CGPA: 8.12 / 10",
-      "Coursework: Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, Object-Oriented Analysis & Design."
+      "Maintained a cumulative GPA of 8.12 / 10 with distinction in core software engineering subjects.",
+      "Hands-on laboratory experience designing relational schemas, writing complex SQL queries, and implementing data structures.",
+      "Collaborated on academic software engineering projects emphasizing clean code, modular design, and version control."
     ]
   }
 ];

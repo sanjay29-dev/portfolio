@@ -144,21 +144,82 @@ export default function FeaturedProjects() {
             </Reveal>
           </div>
         ) : (
-          /* Multi-project grid fallback (automatically used when 2+ projects are present) */
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          /* Multi-project grid (displayed when 2+ projects are present) */
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {projectsData.map((p, idx) => (
               <Reveal key={p.slug} delay={idx * 0.1}>
-                <Card hoverEffect className="flex flex-col justify-between h-full p-6">
+                <div className="rounded-2xl border border-border bg-bg-elevated hover:border-accent/40 transition-all duration-300 overflow-hidden shadow-2xl group flex flex-col justify-between h-full">
                   <div>
-                    <h3 className="text-2xl font-heading font-bold mb-2">{p.title}</h3>
-                    <p className="text-text-muted text-sm mb-4">{p.tagline}</p>
+                    {/* Top Screenshot Thumbnail */}
+                    <div className="relative bg-bg-subtle overflow-hidden border-b border-border p-4">
+                      <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-border/80 shadow-md relative">
+                        <img
+                          src={p.screenshots[0].src}
+                          alt={p.title}
+                          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-bg-elevated/80 via-transparent to-transparent opacity-60" />
+                        <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-xs font-mono">
+                          <span className="px-2 py-0.5 rounded-md bg-bg/90 border border-border text-accent backdrop-blur-sm text-[11px]">
+                            Live Architecture
+                          </span>
+                          <span className="px-2 py-0.5 rounded-md bg-bg/90 border border-border text-text-muted backdrop-blur-sm text-[11px]">
+                            {p.screenshots.length} Screenshots
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Tag variant="accent" size="xs">FULL STACK</Tag>
+                        <Tag variant="success" size="xs">BUILT SOLO</Tag>
+                      </div>
+
+                      <h3 className="text-2xl font-heading font-bold text-text mb-1">
+                        {p.title}
+                      </h3>
+                      <p className="text-xs font-mono text-accent mb-3">
+                        {p.subtitle}
+                      </p>
+
+                      <p className="text-text-muted text-sm leading-relaxed mb-5">
+                        {p.tagline}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 mb-2">
+                        {p.tags.slice(0, 5).map((tag) => (
+                          <Tag key={tag} variant="default" size="xs">
+                            {tag}
+                          </Tag>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="pt-4 border-t border-border">
-                    <Button variant="primary" size="sm" href={`/projects/${p.slug}`}>
+
+                  {/* Actions */}
+                  <div className="p-6 pt-4 border-t border-border flex items-center justify-between gap-3">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      icon={ArrowRight}
+                      href={`/projects/${p.slug}`}
+                    >
                       View Case Study
                     </Button>
+
+                    <Button
+                      variant="subtle"
+                      size="sm"
+                      icon={Github}
+                      href={p.github}
+                      target="_blank"
+                    >
+                      GitHub
+                    </Button>
                   </div>
-                </Card>
+                </div>
               </Reveal>
             ))}
           </div>
