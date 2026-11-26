@@ -29,15 +29,17 @@ export const experienceData = [
   },
   {
     type: "internship",
-    title: "Cloud Computing Intern",
+    title: "Cloud Computing Internship",
     organization: "HTGE",
-    period: "2025",
-    duration: "3 weeks",
-    location: "Pondicherry, India",
-    description: "Practical internship focusing on Amazon Web Services (AWS) infrastructure and cloud deployment basics.",
+    period: "Oct 2025 – Dec 2025",
+    duration: "2 months",
+    location: "On-Campus (APCE, Kalavai)",
+    description: "Real-time hands-on Cloud Computing Internship focused on Amazon Web Services (AWS), practicing core cloud infrastructure, deployment, access control, storage, load balancing, and instance backups.",
     highlights: [
-      "Provisioned and managed Amazon EC2 Linux/Windows virtual instances.",
-      "Configured S3 storage buckets, object lifecycle rules, and IAM security policies/roles."
+      "Amazon EC2: Created, configured, and deployed virtual instances in real time.",
+      "AWS IAM: Configured user policies, rules, and access permissions.",
+      "Amazon S3: Stored and organized project data in S3 buckets.",
+      "Load Balancing & Backups: Practiced configuring load balancing and taking backups for EC2 instances."
     ]
   }
 ];
