@@ -128,12 +128,6 @@ portfolio/
 
 ---
 
-## 🔒 Privacy Note
-
-Phone numbers are never hardcoded in source code, data files, or HTML meta tags.
-
----
-
 ## 👨‍💻 Developer
 
 **Sanjay V**  
