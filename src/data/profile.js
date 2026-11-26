@@ -14,8 +14,8 @@ export const profileData = {
   linkedin: "https://linkedin.com/in/sanjay-v-a47452374",
   formspreeId: "xvkadvey", // Formspree form ID connected to wilsonsanjay29@gmail.com
   photo: "/media/profile/photo.png",
-  resumePath: null, // Phone number detected in PDF - kept private until clean version is provided
-  resumeAvailable: false,
+  resumePath: "/media/resume/Sanjay_V_Resume.pdf",
+  resumeAvailable: true,
   intro: "I build reliable back-end systems with Spring Boot and clean React interfaces. Information Technology graduate, trained in full stack development, focused on writing code that is simple, tested and easy to maintain.",
   snapshot: [
     { label: "Stack", value: "Java · Spring Boot · React · MySQL" },
