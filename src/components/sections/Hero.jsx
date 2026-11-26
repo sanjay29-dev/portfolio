@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Mail, FileText, ArrowRight, Sparkles } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
+import { useResumeModal } from '../../context/ResumeContext.jsx';
 import Button from '../ui/Button.jsx';
 import Tooltip from '../ui/Tooltip.jsx';
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const { openResume } = useResumeModal();
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -103,8 +105,7 @@ export default function Hero() {
                   variant="outline"
                   size="lg"
                   icon={FileText}
-                  href={profileData.resumePath}
-                  download
+                  onClick={openResume}
                 >
                   Download Resume
                 </Button>

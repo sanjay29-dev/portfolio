@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, FileText } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
 import { useScrollSpy } from '../../hooks/useScrollSpy.js';
+import { useResumeModal } from '../../context/ResumeContext.jsx';
 import Button from '../ui/Button.jsx';
 import MobileMenu from './MobileMenu.jsx';
 
@@ -19,6 +20,7 @@ const navLinks = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { openResume } = useResumeModal();
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -92,16 +94,17 @@ export default function Navbar() {
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Resume Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              icon={FileText}
-              href={profileData.resumePath}
-              download
-              className="hidden sm:inline-flex"
-            >
-              Resume
-            </Button>
+            {profileData.resumeAvailable && profileData.resumePath && (
+              <Button
+                variant="outline"
+                size="sm"
+                icon={FileText}
+                onClick={openResume}
+                className="hidden sm:inline-flex"
+              >
+                Resume
+              </Button>
+            )}
 
             {/* Mobile Hamburger Toggle */}
             <button

@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, FileText, Github, Linkedin, Mail } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
+import { useResumeModal } from '../../context/ResumeContext.jsx';
 import Button from '../ui/Button.jsx';
 
 export default function MobileMenu({ isOpen, onClose, navLinks, activeSection, isHome = true }) {
+  const { openResume } = useResumeModal();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -55,16 +58,20 @@ export default function MobileMenu({ isOpen, onClose, navLinks, activeSection, i
 
           {/* Bottom Actions */}
           <div className="pt-6 border-t border-border space-y-4">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full justify-center"
-              icon={FileText}
-              href={profileData.resumePath}
-              download
-            >
-              Download Resume
-            </Button>
+            {profileData.resumeAvailable && profileData.resumePath && (
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full justify-center"
+                icon={FileText}
+                onClick={() => {
+                  onClose();
+                  openResume();
+                }}
+              >
+                Download Resume
+              </Button>
+            )}
 
             <div className="flex items-center justify-around pt-2 text-text-muted">
               <a
